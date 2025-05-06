@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS Animal Picker</title>
+  <style type="text/css">
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+
+    main {
+      display: grid;
+      grid-template: "filters" auto
+                     "animals" auto / auto;
+                     gap: 0 6px;
+
+      @media (min-width: 600px) {
+        grid-template: "filters animals" auto / 212px auto;
+      }
+    }
+
+    header {
+      text-align: center;
+    }
+
+    #filters {
+      grid-area: filters;
+    }
+
+    #animals {
+      align-self: start;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      grid-area: animals;
+      list-style: none;
+      padding: 0;
+    }
+
+    .animal {
+      align-items: center;
+      border: 6px solid #633;
+      border-radius: 8px;
+      flex-direction: column;
+      width: 140px;
+
+      img {
+        height: 140px;
+        width: 140px;
+      }
+    }
+
+    #filters li {
+      padding: 4px 0;
+    }
+
+    #filters:has(#filter-or:checked) ~ #animals .animal {
+      display: none;
+    }
+
+    #filters:has(#filter-and:checked) ~ #animals .animal {
+      display: flex;
+    }
+
+    #filters:has(#filter-or:checked):has(#aquatic:checked)      ~ #animals .aquatic,
+    #filters:has(#filter-or:checked):has(#bird:checked)         ~ #animals .bird,
+    #filters:has(#filter-or:checked):has(#carnivore:checked)    ~ #animals .carnivore,
+    #filters:has(#filter-or:checked):has(#herbivore:checked)    ~ #animals .herbivore,
+    #filters:has(#filter-or:checked):has(#invertebrate:checked) ~ #animals .invertebrate,
+    #filters:has(#filter-or:checked):has(#mammal:checked)       ~ #animals .mammal,
+    #filters:has(#filter-or:checked):has(#omnivore:checked)     ~ #animals .omnivore,
+    #filters:has(#filter-or:checked):has(#reptile:checked)      ~ #animals .reptile {
+      display: flex;
+    }
+
+    #filters:has(#filter-and:checked):has(#aquatic:checked)      ~ #animals .animal:not(.aquatic),
+    #filters:has(#filter-and:checked):has(#bird:checked)         ~ #animals .animal:not(.bird),
+    #filters:has(#filter-and:checked):has(#carnivore:checked)    ~ #animals .animal:not(.carnivore),
+    #filters:has(#filter-and:checked):has(#herbivore:checked)    ~ #animals .animal:not(.herbivore),
+    #filters:has(#filter-and:checked):has(#invertebrate:checked) ~ #animals .animal:not(.invertebrate),
+    #filters:has(#filter-and:checked):has(#mammal:checked)       ~ #animals .animal:not(.mammal),
+    #filters:has(#filter-and:checked):has(#omnivore:checked)     ~ #animals .animal:not(.omnivore),
+    #filters:has(#filter-and:checked):has(#reptile:checked)      ~ #animals .animal:not(.reptile) {
+      display: none;
+    }
+
+    footer {
+      font-size: 80%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Find An Animal</h1>
+  </header>
+  <main>
+    <aside id="filters">
+      <h2>Filter mode:</h2>
+      <ul>
+        <li>
+          <input type="radio" name="mode" id="filter-or" checked>
+          <label for="filter-or"><strong>OR</strong> (must match <em>any</em> checked category)</label>
+        </li>
+        <li>
+          <input type="radio" name="mode" id="filter-and">
+          <label for="filter-and"><strong>AND</strong> (must match <em>all</em> checked categories)</label>
+        </li>
+      </ul>
+
+      <h2>Categories:</h2>
+      <ul>
+        <li>
+          <input type="checkbox" id="aquatic">
+          <label for="aquatic">Aquatic</label>
+        </li>
+        <li>
+          <input type="checkbox" id="bird">
+          <label for="bird">Bird</label>
+        </li>
+        <li>
+          <input type="checkbox" id="carnivore">
+          <label for="carnivore">Carnivore</label>
+        </li>
+        <li>
+          <input type="checkbox" id="herbivore">
+          <label for="herbivore">Herbivore</label>
+        </li>
+        <li>
+          <input type="checkbox" id="invertebrate">
+          <label for="invertebrate">Invertebrate</label>
+        </li>
+        <li>
+          <input type="checkbox" id="mammal" checked>
+          <label for="mammal">Mammal</label>
+        </li>
+        <li>
+          <input type="checkbox" id="omnivore">
+          <label for="omnivore">Omnivore</label>
+        </li>
+        <li>
+          <input type="checkbox" id="reptile">
+          <label for="reptile">Reptile</label>
+        </li>
+      </ul>
+    </aside>
+
+    <ul id="animals">
+      <li class="animal mammal herbivore">
+        <img src="animals/alpaca.svg" alt="">
+        <span>Alpaca</span>
+      </li>
+      <li class="animal mammal carnivore">
+        <img src="animals/anteater.svg" alt="">
+        <span>Anteater</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/bat.svg" alt="">
+        <span>Bat</span>
+      </li>
+      <li class="animal invertebrate omnivore">
+        <img src="animals/beetle.svg" alt="">
+        <span>Beetle</span>
+      </li>
+      <li class="animal invertebrate herbivore">
+        <img src="animals/butterfly.svg" alt="">
+        <span>Butterfly</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/camel.svg" alt="">
+        <span>Camel</span>
+      </li>
+      <li class="animal mammal carnivore">
+        <img src="animals/cat.svg" alt="">
+        <span>Cat</span>
+      </li>
+      <li class="animal carnivore reptile">
+        <img src="animals/chameleon.svg" alt="">
+        <span>Chameleon</span>
+      </li>
+      <li class="animal carnivore reptile">
+        <img src="animals/cobra.svg" alt="">
+        <span>Cobra</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/cow.svg" alt="">
+        <span>Cow</span>
+      </li>
+      <li class="animal aquatic omnivore">
+        <img src="animals/crab.svg" alt="">
+        <span>Crab</span>
+      </li>
+      <li class="animal aquatic carnivore reptile">
+        <img src="animals/crocodile.svg" alt="">
+        <span>Crocodile</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/dog.svg" alt="">
+        <span>Dog</span>
+      </li>
+      <li class="animal aquatic omnivore bird">
+        <img src="animals/duck.svg" alt="">
+        <span>Duck</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/elephant.svg" alt="">
+        <span>Elephant</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/elk.svg" alt="">
+        <span>Elk</span>
+      </li>
+      <li class="animal aquatic omnivore">
+        <img src="animals/fish.svg" alt="">
+        <span>Fish</span>
+      </li>
+      <li class="animal aquatic omnivore">
+        <img src="animals/frog.svg" alt="">
+        <span>Frog</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/giraffe.svg" alt="">
+        <span>Giraffe</span>
+      </li>
+      <li class="animal mammal aquatic herbivore">
+        <img src="animals/hippo.svg" alt="">
+        <span>Hippo</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/husky.svg" alt="">
+        <span>Husky</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/kangaroo.svg" alt="">
+        <span>Kangaroo</span>
+      </li>
+      <li class="animal mammal carnivore">
+        <img src="animals/lion.svg" alt="">
+        <span>Lion</span>
+      </li>
+      <li class="animal omnivore bird">
+        <img src="animals/macaw.svg" alt="">
+        <span>Macaw</span>
+      </li>
+      <li class="animal mammal aquatic herbivore">
+        <img src="animals/manatee.svg" alt="">
+        <span>Manatee</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/monkey.svg" alt="">
+        <span>Monkey</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/mouse.svg" alt="">
+        <span>Mouse</span>
+      </li>
+      <li class="animal invertebrate aquatic omnivore">
+        <img src="animals/octopus.svg" alt="">
+        <span>Octopus</span>
+      </li>
+      <li class="animal omnivore bird">
+        <img src="animals/ostrich.svg" alt="">
+        <span>Ostrich</span>
+      </li>
+      <li class="animal carnivore bird">
+        <img src="animals/owl.svg" alt="">
+        <span>Owl</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/panda.svg" alt="">
+        <span>Panda</span>
+      </li>
+      <li class="animal aquatic omnivore bird">
+        <img src="animals/pelican.svg" alt="">
+        <span>Pelican</span>
+      </li>
+      <li class="animal aquatic carnivore bird">
+        <img src="animals/penguin.svg" alt="">
+        <span>Penguin</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/pig.svg" alt="">
+        <span>Pig</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/rabbit.svg" alt="">
+        <span>Rabbit</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/raccoon.svg" alt="">
+        <span>Raccoon</span>
+      </li>
+      <li class="animal aquatic omnivore">
+        <img src="animals/ray.svg" alt="">
+        <span>Ray</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/rhino.svg" alt="">
+        <span>Rhino</span>
+      </li>
+      <li class="animal omnivore bird">
+        <img src="animals/rooster.svg" alt="">
+        <span>Rooster</span>
+      </li>
+      <li class="animal aquatic carnivore">
+        <img src="animals/shark.svg" alt="">
+        <span>Shark</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/sheep.svg" alt="">
+        <span>Sheep</span>
+      </li>
+      <li class="animal mammal herbivore">
+        <img src="animals/sloth.svg" alt="">
+        <span>Sloth</span>
+      </li>
+      <li class="animal carnivore reptile">
+        <img src="animals/snake.svg" alt="">
+        <span>Snake</span>
+      </li>
+      <li class="animal invertebrate carnivore">
+        <img src="animals/spider.svg" alt="">
+        <span>Spider</span>
+      </li>
+      <li class="animal mammal omnivore">
+        <img src="animals/squirrel.svg" alt="">
+        <span>Squirrel</span>
+      </li>
+      <li class="animal omnivore bird">
+        <img src="animals/swan.svg" alt="">
+        <span>Swan</span>
+      </li>
+      <li class="animal mammal carnivore">
+        <img src="animals/tiger.svg" alt="">
+        <span>Tiger</span>
+      </li>
+      <li class="animal herbivore bird">
+        <img src="animals/toucan.svg" alt="">
+        <span>Toucan</span>
+      </li>
+      <li class="animal aquatic omnivore reptile">
+        <img src="animals/turtle.svg" alt="">
+        <span>Turtle</span>
+      </li>
+      <li class="animal mammal aquatic">
+        <img src="animals/whale.svg" alt="">
+        <span>Whale</span>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>
+      This is a demonstration of filtering elements using pure CSS. It makes use of the <code>:has(...)</code> selector and
+      the <code>~</code> subsequent-sibling combinator to make functional "OR" <em>and</em> "AND" filtering rules work without
+      the need for JavaScript.
+    </p>
+    <p>
+      <a href="https://www.svgrepo.com/collection/animal-outlined-sepia-icons/">Animal icons</a>
+      by <a href="https://dribbble.com/reggid">Aslan Almukhambetov</a>,
+      used under <a href="https://creativecommons.org/licenses/by/4.0/">a Creative Commons Attribution license</a>.
+    </p>
+    <p>
+      This page was created by <a href="https://danq.me/">Dan Q</a>.
+      <a href="https://github.com/Dan-Q/checkbox-filters-css">All code used on this page</a>
+      is released into the public domain under <a href="https://unlicense.org/">the Unlicense</a>:
+      you're free to use it however you want, for any purpose, without limitation.
+    </p>
+  </footer>
+</body>
+</html>
